@@ -1,124 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bishwajit Singh | Data Engineer Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bishwajit Singh | Data Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     * {
       margin: 0;
       padding: 0;
-      font-family: 'Poppins', sans-serif;
       box-sizing: border-box;
     }
-
     body {
-      background-color: #f4f4f4;
-      color: #333;
-      line-height: 1.6;
-      padding: 30px;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #ff6f00, #ffcc80); /* Bhagwa tone */
+      color: #222;
     }
-
     header {
+      background: rgba(0,0,0,0.1);
       text-align: center;
-      margin-bottom: 40px;
+      padding: 2rem 1rem;
     }
-
     header h1 {
       font-size: 2.5rem;
-      color: #2d3748;
+      color: white;
     }
-
-    header p {
+    header h2 {
       font-size: 1.2rem;
-      color: #555;
+      color: #ffe0b2;
     }
-
     section {
-      margin-bottom: 50px;
+      padding: 3rem 1rem;
+      max-width: 900px;
+      margin: auto;
     }
-
-    h2 {
-      font-size: 1.6rem;
-      color: #1a202c;
-      margin-bottom: 15px;
+    h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #4e342e;
+      border-bottom: 2px solid #ffa726;
+      display: inline-block;
     }
-
-    ul {
-      list-style: none;
+    .skills, .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
     }
-
-    li {
-      background: #fff;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-left: 5px solid #4a90e2;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    .card {
+      background: white;
+      padding: 1.2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-
-    a {
-      color: #4a90e2;
-      text-decoration: none;
+    .card:hover {
+      transform: translateY(-5px);
+      transition: 0.3s;
     }
-
     footer {
+      background: #bf360c;
+      color: white;
       text-align: center;
-      margin-top: 60px;
+      padding: 1rem;
       font-size: 0.9rem;
-      color: #777;
+    }
+    a {
+      color: #e65100;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      background: #ff6f00;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 5px;
+      font-weight: bold;
     }
   </style>
 </head>
-
 <body>
+
   <header>
+    <h1>🙏 Jai Shree Ram</h1>
     <h1>Bishwajit Singh</h1>
-    <p>Aspiring Data Engineer | Azure | PySpark | Databricks | Delta Lake</p>
+    <h2>🚀 Aspiring Data Engineer | Azure | Python | Databricks | PySpark | SQL</h2>
+    <a class="btn" href="Bishwajit_Singh_Data_Engineer_Resume.pdf" target="_blank">📄 Download Resume</a>
   </header>
 
   <section>
-    <h2>📁 Projects</h2>
-    <ul>
-      <li>
-        <strong>🏅 <a href="https://github.com/bishwajitSingh123/olympic-data-pipeline" target="_blank">Olympics Data Engineering Project</a></strong><br />
-        End-to-end Lakehouse pipeline using ADF + Azure + Databricks. Includes CI/CD with Azure DevOps and ARM templates.
-      </li>
-      <li>
-        <strong>🚖 <a href="https://github.com/bishwajitSingh123/nyc-yellow-taxi-pipeline" target="_blank">NYC Yellow Taxi Pipeline</a></strong><br />
-        Bronze → Silver → Gold layers pipeline on Azure Databricks for real-world taxi data.
-      </li>
-      <li>
-        <strong>🏢 <a href="https://github.com/bishwajitSingh123/Adventure-Works-Data-Engineering-Project" target="_blank">AdventureWorks Data Engineering</a></strong><br />
-        Azure Synapse + Databricks + Power BI project for warehouse concepts and reporting.
-      </li>
-      <li>
-        <strong>🌐 <a href="https://github.com/bishwajitSingh123/requirement-drive-portal" target="_blank">Requirement Drive Portal</a></strong><br />
-        Django-based CRUD portal with authentication features.
-      </li>
-    </ul>
+    <h3>💡 Skills</h3>
+    <div class="skills">
+      <div class="card">Python • SQL • PySpark</div>
+      <div class="card">Azure Data Factory • Databricks</div>
+      <div class="card">Stream Analytics • Delta Lake</div>
+      <div class="card">Data Warehousing • RDBMS</div>
+      <div class="card">Git • Linux • OOPs</div>
+    </div>
   </section>
 
   <section>
-    <h2>📫 Contact</h2>
-    <ul>
-      <li>Email: <a href="mailto:bishwajit.1804@gmail.com">bishwajit.1804@gmail.com</a></li>
-      <li>LinkedIn: <a href="https://www.linkedin.com/in/bishwajitsingh" target="_blank">linkedin.com/in/bishwajitsingh</a></li>
-      <li>GitHub: <a href="https://github.com/bishwajitSingh123" target="_blank">github.com/bishwajitSingh123</a></li>
-    </ul>
+    <h3>🤖 Projects</h3>
+    <div class="projects">
+      <div class="card">
+        <h4>🔗 Requirement Drive Portal</h4>
+        <p>Streamlined hiring platform using Python + Streamlit.</p>
+        <a href="https://github.com/bishwajitSingh123/requirement-drive-portal" target="_blank">View on GitHub</a>
+      </div>
+      <div class="card">
+        <h4>📊 Real-Time ETL Pipeline (Azure)</h4>
+        <p>Built scalable data ingestion and transformation pipeline using Azure & PySpark.</p>
+      </div>
+      <div class="card">
+        <h4>🧠 AI Portfolio</h4>
+        <p>This very portfolio deployed via GitHub Pages with Bhagwa + Robotics design.</p>
+      </div>
+    </div>
   </section>
-  <section>
-  <h2>📄 Resume</h2>
-  <ul>
-    <li><a href="Bishwajit_Singh_Data_Engineer_Resume.pdf" target="_blank">Download My Resume (PDF)</a></li>
-  </ul>
-</section>
 
+  <section>
+    <h3>📫 Contact</h3>
+    <p>Email: bishwajit.1804@gmail.com</p>
+    <p>Phone: +91-8882218924</p>
+    <p>GitHub: <a href="https://github.com/bishwajitSingh123" target="_blank">bishwajitSingh123</a></p>
+    <p>LinkedIn: <a href="https://linkedin.com/in/bishwajitsingh" target="_blank">bishwajitsingh</a></p>
+  </section>
 
   <footer>
-    &copy; 2025 Bishwajit Singh. Built with ❤️ using HTML + GitHub Pages.
+    🚩 Made with devotion and code | Jai Shree Ram
   </footer>
-</body>
 
+</body>
 </html>
