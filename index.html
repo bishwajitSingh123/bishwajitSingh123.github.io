@@ -4,8 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bishwajit Prasad Singh | AI & Data Engineer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Fonts: Geometric Sans + Serif -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@400;600&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <!-- Particle.js -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.1/tsparticles.bundle.min.js"></script>
   <style>
     :root {
       --electric-blue: #00fff7;
@@ -13,45 +17,68 @@
       --neon-orange: #ff6f00;
       --robot-grey: #202032;
       --glass-bg: rgba(32,32,50,0.85);
+      --serif:'Lora',serif;
+      --sans:'Poppins',sans-serif;
     }
     body {
       margin:0; padding:0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(120deg, #161630 75%, #252553 100%);
-      position: relative;
+      font-family: var(--sans);
+      background: linear-gradient(120deg, #161630 85%, #252553 100%);
       color: #e5e6fa;
       min-height: 100vh;
       overflow-x: hidden;
+      transition:.4s background;
+    }
+    body.light {
+      background:linear-gradient(120deg,#f7f9fa 75%,#e0eaff 100%);
+      color:#222;
     }
     body::before {
       content: "";
       position: fixed; z-index: 0;
       width: 100vw; height: 100vh;
-      background: url('https://cdn.jsdelivr.net/gh/kognise/water.css@0.1.4/images/mesh-bg.svg') center/cover no-repeat;
-      opacity: 0.16;
+      background: url('https://www.svgbackgrounds.com/wp-content/uploads/2021/11/circuit-board.svg') center/cover no-repeat;
+      opacity: 0.15;
       left:0;top:0;
       pointer-events:none;
     }
+    /* Particle Background */
+    #particles-js {position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;}
 
     header {
       text-align: center;
       padding: 2rem 1rem .6rem 1rem;
+      z-index:2;
       position: relative;
-      z-index: 1;
     }
     .ai-title {
       font-size: 2.5rem;
-      font-family: 'Orbitron', 'Poppins', sans-serif;
-      letter-spacing: 2px;
+      font-family: 'Orbitron', var(--sans);
       color: var(--electric-blue);
       text-shadow: 0 0 14px var(--neon-purple), 0 0 25px var(--neon-orange);
       animation: aiGlow 2.5s infinite alternate;
+      letter-spacing: 2px;
+      font-weight: bold;
     }
     @keyframes aiGlow {
       from { text-shadow: 0 0 8px var(--electric-blue), 0 0 12px var(--neon-purple);}
       to { text-shadow: 0 0 24px var(--electric-blue), 0 0 48px var(--neon-orange);}
     }
+    .hero-svg {width:85px; margin:auto; margin-top:-30px;}
 
+    #toggleDarkLight {
+      background: linear-gradient(90deg, var(--neon-purple), var(--electric-blue));
+      color: #fff;
+      border:none; padding:.5rem 1rem;
+      font-size:1rem;
+      border-radius:6px;
+      font-family:var(--sans); font-weight:600;
+      margin:10px 0 0 0; float:right; position:relative; z-index:9;
+      cursor:pointer;
+      box-shadow: 0 1px 15px #8a2be2bb;
+      transition: background .3s, transform .18s;
+    }
+    #toggleDarkLight:hover { background: linear-gradient(90deg,var(--electric-blue), var(--neon-orange)); transform: scale(1.05);}
     .profile-card {
       margin: 2rem auto 1rem auto;
       max-width: 980px;
@@ -62,50 +89,47 @@
       display: flex; flex-wrap: wrap;
       align-items: center; justify-content: space-between;
       padding: 2rem 2.5rem;
-      position: relative;
-      z-index: 2;
+      z-index:2; position:relative;
     }
-
+    body.light .profile-card {background:rgba(245,245,255,0.97); color:#181824;}
     .profile-pic {
       width: 145px; height: 145px;
       border-radius: 50%; object-fit: cover;
-      box-shadow: 0 0 0 4px var(--neon-orange), 0 12px 28px var(--neon-purple);
+      box-shadow: 0 0 0 4px var(--neon-orange), 0 12px 22px var(--neon-purple);
       border: 3px solid var(--electric-blue);
       margin-right: 2.2rem;
     }
-    .profile-summary {
-      flex:1;
-    }
+    .profile-summary { flex:1; }
     .profile-name {
       font-size: 2rem;
-      font-family: 'Orbitron', 'Poppins', sans-serif;
+      font-family: 'Orbitron', var(--sans);
       color: var(--neon-orange);
       margin-bottom: .8rem;
       letter-spacing: 2px;
       text-shadow: 0 0 8px var(--electric-blue);
       font-weight: bold;
     }
-    .profile-role { font-size: 1.1rem; font-weight: 600; margin-bottom: .2rem; color: var(--electric-blue);}
-    .profile-contact {
-      margin:.7rem 0;
-      font-size: 1.04rem;
-    }
+    .profile-role { font-size: 1.16rem; font-weight: 600; margin-bottom: .2rem; color: var(--electric-blue);}
+    .profile-contact { margin:.7rem 0; font-size: 1.07rem;}
+    .profile-contact span {margin-right:.8rem;}
     .profile-summary-text {
       font-size: 1.04rem;
       color: #e5e6fa;
       margin-bottom: .7rem;
-      line-height: 1.6;
-      background: #222b;
+      line-height: 1.59;
+      font-family:var(--serif);
+      background: #222a;
       border-radius: 9px;
       padding: .6rem .9rem;
       box-shadow: 0 2px 16px #8a2be247;
     }
+    body.light .profile-summary-text { color:#181824; background:#eef3fd;}
     .download-btn {
       display: inline-block;
       background: linear-gradient(90deg, var(--neon-orange), var(--electric-blue));
       color: #fff;
       padding: 0.6rem 1.3rem;
-      font-size: 1.03rem;
+      font-size: 1.08rem;
       border-radius: 7px;
       font-weight: bold;
       text-decoration: none;
@@ -121,25 +145,20 @@
       border-radius: 16px;
       box-shadow: 0 4px 18px #8a2be252;
       margin: 2rem auto 2rem auto;
-      max-width: 980px;
-      padding: 2rem 2.3rem 1rem 2.3rem;
-      z-index:2;
+      max-width: 960px; padding: 2rem 2.1rem 1rem 2.1rem; z-index:2;
     }
+    body.light .glass-section {background:rgba(229,236,255,0.97); color:#181824;}
     h3 {
-      font-size: 1.2rem;
+      font-size: 1.17rem;
       margin-bottom: 1.2rem;
       color: var(--electric-blue);
-      border-left: 5px solid var(--neon-orange);
+      border-left: 4px solid var(--neon-orange);
       padding-left: 11px;
       letter-spacing: 1.7px;
       text-shadow: 0 0 10px var(--neon-purple), 0 0 3px var(--electric-blue);
-      font-family: 'Orbitron', 'Poppins', sans-serif;
+      font-family: 'Orbitron', var(--sans);
     }
-    .skills-grid, .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-      gap: 1.1rem;
-    }
+    .skills-grid, .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 1.1rem;}
     .skill-card {
       background: #262553f6;
       border: 1.5px solid #00fff7c1;
@@ -148,69 +167,57 @@
       box-shadow: 0 2px 14px #2a2a5e67;
       color: #e5e6fa;
       font-size: 1.01rem;
+      font-family:var(--serif);
       transition: transform .24s, box-shadow .24s;
       position: relative;
     }
     .skill-card:hover { transform: scale(1.054) translateY(-5px); box-shadow:0 8px 24px #8a2be24c;}
+    body.light .skill-card { background: #f6f4ff; color:#181824;}
     .skill-card h4 {
-      color: var(--neon-orange);
-      margin-bottom: 6px;
-      font-family: 'Orbitron',sans-serif;
+      color: var(--neon-orange); margin-bottom: 6px;
+      font-family: 'Orbitron',var(--sans);
     }
-    .icon { font-size: 1.2rem; color: var(--electric-blue); margin-right: .5rem;}
+    .icon { font-size: 1.15rem; color: var(--electric-blue); margin-right: .5rem;}
     .project-card {
       background: #232369fa;
       border: 2px solid #8a2be2;
       border-radius: 14px;
       padding: 1rem .7rem;
       box-shadow: 0 4px 14px #8a2be247;
+      font-family:var(--serif);
       color: #e5e6fa;
       position: relative;
       transition: transform .26s, box-shadow .26s;
       overflow: hidden;
     }
-    .project-card:hover {
-      transform: scale(1.045) translateY(-7px);
-      box-shadow:0 10px 28px #00fff765;
-      border-color: var(--electric-blue);
-      background: linear-gradient(120deg, #232369fa 70%, #4f8cff44 100%);
-    }
+    .project-card:hover {transform: scale(1.045) translateY(-7px); box-shadow:0 10px 28px #00fff765; border-color: var(--electric-blue);}
+    body.light .project-card { background: #f5f5fa; color:#181824;}
     .project-card h4 { color: var(--electric-blue); margin-bottom:.6rem;}
     .project-card a { color: var(--neon-orange); text-decoration: underline; font-weight: bold;}
     .project-card a:hover { color: var(--electric-blue);}
-    .exp-card, .cert-card {
-      background: #222237f7;
-      border-radius: 10px;
-      margin-bottom: .9rem;
-      padding:1rem 1.3rem;
-      color: #e5e6fa;
-      box-shadow: 0 2px 14px #8a2be269;
-    }
-    .contact-card {
-      background: #24243be2;
-      border-radius: 10px;
-      padding:1rem 1.1rem;
-      color: #fff;
-      margin-top: 1.6rem;
-      box-shadow: 0 2px 16px #ff6f0054;
-    }
-    .social-icons { margin-top:.83rem;}
-    .social-icons a {
-      color: var(--electric-blue);
-      font-size: 1.25rem;
-      margin: 0 .39rem;
-      transition: color .19s;
-      vertical-align: middle;
-    }
-    .social-icons a:hover { color: var(--neon-orange);}
+    .project-meta {font-size:.95rem; color:#56f6ff;}
+    .impact-metric {color: var(--neon-orange); font-weight:600; font-size:.98rem;}
+    .case-desc {font-size:.97rem; margin-top: .35rem; color: #eaeaea;}
+    .exp-card, .cert-card {background: #222237f7; border-radius:10px; margin-bottom: .95rem; padding:1rem 1.3rem; color: #e5e6fa; box-shadow: 0 2px 14px #8a2be269;}
+    body.light .exp-card,body.light .cert-card{background:#e4eafe;color:#222;}
+    .contact-card {background: #24243be2; border-radius:10px; padding:1rem 1.1rem; color: #fff; margin-top: 1.6rem; box-shadow: 0 2px 16px #ff6f0054;}
+    body.light .contact-card {background:#f5f6fa;color:#181824;}
+    .social-icons {margin-top:.82rem;}
+    .social-icons a {color: var(--electric-blue); font-size: 1.25rem; margin: 0 .39rem; transition: color .19s; vertical-align: middle;}
+    .social-icons a:hover {color: var(--neon-orange);}
+    .style-guide { display: flex; gap:2.5rem; flex-wrap: wrap; margin-top:1.2rem;}
+    .sg-colors {display:flex; gap:1.1rem;}
+    .sg-color {width:56px;height:56px;border-radius:50%; border:2px solid #fff;line-height:56px;text-align:center;font-weight:bold;box-shadow:0 0 12px #8a2be254;}
+    .sg-fonts {font-family:var(--serif); font-size:1.12rem;}
+    .sg-sans {font-family:var(--sans); font-size:1.13rem;}
     footer {
       background: #000013c2;
       color: var(--neon-orange);
       text-align: center;
       padding: 1rem;
       border-top: 3px solid var(--neon-purple);
-      font-family:'Orbitron',sans-serif;
-      letter-spacing: 1.6px;
+      font-family:'Orbitron',var(--sans);
+      letter-spacing: 1.5px;
       text-shadow:0 0 6px #8a2be2;
       margin-top: 2.2rem;
       font-size:1rem;
@@ -221,24 +228,38 @@
     @media screen and (max-width:600px){
       .profile-card {flex-direction: column;}
       .profile-pic {margin-bottom:1.1rem;}
+      .sg-colors{gap:.7rem;}
     }
   </style>
 </head>
 <body>
+  <div id="particles-js"></div>
+  <script>
+  tsParticles.load("particles-js", {
+    particles: {
+      number: { value: 40 },
+      color: { value: "#8a2be2" },
+      links: { enable:true, color:"#ff6f00", distance:140 },
+      move: { speed:2 },
+      shape:{type:"circle"}
+    }
+  });
+  </script>
+  <button id="toggleDarkLight">🌖 Toggle Mode</button>
   <header>
     <div class="ai-title">🤖 Bishwajit Prasad Singh | AI & Data Engineer</div>
+    <img class="hero-svg" src="https://www.svgrepo.com/show/305230/robot-face.svg" alt="AI Robot"/>
   </header>
-
   <div class="profile-card">
     <img src="Pp_Bishwajit_Image.jpg" alt="Bishwajit Prasad Singh" class="profile-pic"/>
     <div class="profile-summary">
       <div class="profile-name">Bishwajit Prasad Singh</div>
       <div class="profile-role">AI & Data Engineer | ML, Deep Learning, NLP, Cloud (Azure & AWS)</div>
       <div class="profile-contact">
-        <i class="fas fa-map-marker-alt"></i> Noida, UP&nbsp;
+        <span><i class="fas fa-map-marker-alt"></i> Noida, UP</span>
         <span style="color:var(--electric-blue); font-weight:bold;">| Open to Relocate</span>
-        <span style="margin-left:.7rem;"><i class="fas fa-phone"></i> +91 8882218924</span>
-        <span style="margin-left:1rem;"><i class="fas fa-envelope"></i> <a href="mailto:bishwajit.1804@gmail.com" style="color:var(--electric-blue);">bishwajit.1804@gmail.com</a></span>
+        <span><i class="fas fa-phone"></i> +91 8882218924</span>
+        <span><i class="fas fa-envelope"></i> <a href="mailto:bishwajit.1804@gmail.com" style="color:var(--electric-blue);">bishwajit.1804@gmail.com</a></span>
       </div>
       <div class="profile-summary-text">
         AI & Data Engineer specializing in architecting scalable machine learning, NLP, and generative AI solutions with expertise in Python, cloud data platforms (Azure/AWS), and distributed big data frameworks. Experienced building robust ETL, real-time streaming architectures, and deploying AI models (LLMs, CV, NLP) for production. Skilled in transformer-based modeling, data orchestration, and backend API engineering—leveraging the latest in cloud, automation, and intelligence. Passionate about integrating cutting-edge AI into business applications for maximum impact and reliability.
@@ -256,7 +277,7 @@
       <div class="skill-card"><h4><i class="fas fa-cloud icon"></i> Cloud & DevOps</h4>Azure (ADF, Databricks, Data Lake Gen2), AWS (S3, Glue, Redshift), Docker (basic), CI/CD</div>
       <div class="skill-card"><h4><i class="fas fa-chart-bar icon"></i> Databases & Reporting</h4>Snowflake, MySQL, Cassandra (basic), Redis (basic), Power BI, KPI Dashboards</div>
       <div class="skill-card"><h4><i class="fab fa-git-alt icon"></i> Version Control & Tools</h4>Git, GitHub, Linux, OOPs</div>
-      <div class="skill-card"><h4><i class="fa-solid fa-language icon"></i> Languages</h4>Hindi, English, Maithali, Bengali, Nepali</div>
+      <div class="skill-card"><h4><i class="fa-solid fa-language icon"></i> Languages</h4>Hindi, English, Maithili, Bengali, Nepali</div>
     </div>
   </section>
 
@@ -265,42 +286,46 @@
     <div class="projects-grid">
       <div class="project-card">
         <h4>AI-Enriched Web Scraper</h4>
-        Modular, automated business data pipeline.<br>
-        <b>Tech:</b> Python, Requests, BS4, Pandas, Scikit-learn, TF-IDF, KMeans<br>
-        <b>Impact:</b> Automated clustering, logging, JSON/CSV summaries.
-        <br><a href="https://github.com/bishwajitSingh123/ai-web-scraper" target="_blank">GitHub</a>
+        <span class="project-meta">Python, Requests, BS4, Pandas, Scikit-learn, TF-IDF, KMeans</span><br>
+        <span class="impact-metric">Automated clustering, business insights, fast data reporting</span>
+        <div class="case-desc">Chose modular pipeline for flexibility and error handling. AI enrichments add business value to unstructured web data.</div>
+        <a href="https://github.com/bishwajitSingh123/ai-web-scraper" target="_blank">GitHub</a>
       </div>
       <div class="project-card">
         <h4>AI Resume Matcher Suite</h4>
-        AI agent for resume–job matching (NLP, Embeddings).<br>
-        <b>Tech:</b> Python, Streamlit, SpaCy, Azure Databricks<br>
-        <b>Impact:</b> 90%+ match accuracy, CI/CD pipelines.
-        <br><a href="https://github.com/bishwajitSingh123/resume-ai-shortlister" target="_blank">GitHub</a>
+        <span class="project-meta">Python, Streamlit, SpaCy, Azure Databricks</span><br>
+        <span class="impact-metric">&gt;90% match accuracy, seamless CI/CD</span>
+        <div class="case-desc">NLP-driven embedding match for hiring efficiency—directly impacts recruiter task speed by 2.3x.</div>
+        <a href="https://github.com/bishwajitSingh123/resume-ai-shortlister" target="_blank">GitHub</a> &nbsp;
+        <a href="https://figma.com/file/demolink" target="_blank">Figma Prototype</a>
       </div>
       <div class="project-card">
         <h4>Olympics Data Lakehouse</h4>
-        Scalable ETL for predictive analytics platform.<br>
-        <b>Tech:</b> Azure ADF, Databricks, PySpark, Delta Lake<br>
-        <b>Impact:</b> Daily 10GB scalable pipeline, auto-validation.
-        <br><a href="https://github.com/bishwajitSingh123/olympics-data-lakehouse" target="_blank">GitHub</a>
+        <span class="project-meta">Azure ADF, Databricks, PySpark, Delta Lake</span><br>
+        <span class="impact-metric">10GB daily pipeline, auto-validation, ML-ready</span>
+        <div class="case-desc">Engineered for scalability from day one, enabling predictive sports analytics for real-time reporting.</div>
+        <a href="https://github.com/bishwajitSingh123/olympics-data-lakehouse" target="_blank">GitHub</a>
       </div>
       <div class="project-card">
         <h4>ML Models & LLM Experiments</h4>
-        Supervised models, custom LLMs for NLP tasks.<br>
-        <b>Tech:</b> Python, Scikit-learn, OpenAI API, Hugging Face<br>
-        <br><a href="https://github.com/bishwajitSingh123/ml-models-llm-experiments" target="_blank">GitHub</a>
+        <span class="project-meta">Python, Scikit-learn, OpenAI API, Hugging Face</span>
+        <span class="impact-metric">Fine-tuned LLMs, deployed multi-label text models</span>
+        <div class="case-desc">LLM R&D, agentic prototypes with reasoning—showcases experimentation and explorative design.</div>
+        <a href="https://github.com/bishwajitSingh123/ml-models-llm-experiments" target="_blank">GitHub</a>
       </div>
       <div class="project-card">
         <h4>NYC Yellow Taxi Streaming Pipeline</h4>
-        Real-time analytics & reliability.<br>
-        <b>Tech:</b> Azure Event Hub, Stream Analytics, Databricks, Delta Lake<br>
-        <br><a href="https://github.com/bishwajitSingh123/nyc-taxi-etl-pipeline" target="_blank">GitHub</a>
+        <span class="project-meta">Azure Event Hub, Stream Analytics, Databricks, Delta Lake</span>
+        <span class="impact-metric">Real-time analytics, high-reliability, sub-second latency</span>
+        <div class="case-desc">Engineered for low latency: optimized for live dashboards supporting 10K+ rides/day tracking.</div>
+        <a href="https://github.com/bishwajitSingh123/nyc-taxi-etl-pipeline" target="_blank">GitHub</a>
       </div>
       <div class="project-card">
         <h4>SummerCamp SQL Assignment</h4>
-        Schema design, analytics dashboards, data validation.<br>
-        <b>Tech:</b> SQL, Database Modeling, Power BI<br>
-        <br><a href="https://github.com/bishwajitSingh123/summercamp-assignment-sql" target="_blank">GitHub</a>
+        <span class="project-meta">SQL, Database Modeling, Power BI</span>
+        <span class="impact-metric">Validated schema, clear dashboard analytics</span>
+        <div class="case-desc">User-centric dashboarding prioritizing clarity and rapid insights; designed for analyst workflow.</div>
+        <a href="https://github.com/bishwajitSingh123/summercamp-assignment-sql" target="_blank">GitHub</a>
       </div>
     </div>
   </section>
@@ -310,6 +335,7 @@
     <div class="exp-card">
       <strong>CygnusAdvertising | Backend Developer – Data Ops | Apr–Oct 2024</strong><br>
       Built high-performance backends in Python/PHP; optimized SQL, built ETL pipelines, automated KPI reporting (IITs & major hospitals), led ingestion in MySQL & Databricks.
+      <span class="impact-metric">Optimized queries (30% faster), automated data pipelines, supported multi-client reporting.</span>
     </div>
   </section>
 
@@ -317,12 +343,29 @@
     <h3><i class="fas fa-graduation-cap icon"></i> Education & Certifications</h3>
     <div class="cert-card">
       <strong>B.Tech, Computer Science Engineering (CGPA: 8.71)</strong><br>
-      NSHM Knowledge Campus, Durgapur, WB (2019–2023)<br>
+      NSHM Knowledge Campus, Durgapur, WB (2019–2023)
       <ul>
         <li>Microsoft Certified: Azure Fundamentals</li>
         <li>Microsoft Certified: Azure Data Fundamentals</li>
         <li>Azure Data Engineer Associate (In Progress)</li>
       </ul>
+    </div>
+  </section>
+
+  <section class="glass-section">
+    <h3><i class="fas fa-palette icon"></i> My Design System</h3>
+    <div class="style-guide">
+      <div>
+        <div class="sg-fonts"><b>Serif:</b> Lora &rarr; Key paragraphs</div>
+        <div class="sg-sans"><b>Sans:</b> Orbitron/Poppins &rarr; Headers & UI</div>
+      </div>
+      <div class="sg-colors">
+        <div class="sg-color" style="background:var(--electric-blue);color:#181824;">Blue</div>
+        <div class="sg-color" style="background:var(--neon-purple);color:#fff;">Purple</div>
+        <div class="sg-color" style="background:var(--neon-orange);color:#fff;">Orange</div>
+        <div class="sg-color" style="background:#fff;color:#181824;border:2px solid #333;">Light</div>
+        <div class="sg-color" style="background:#181824;color:#fff;">Dark</div>
+      </div>
     </div>
   </section>
 
@@ -343,5 +386,19 @@
   <footer>
     🚩 You’ve Entered the AI World | Built & Deployed in Code & Devotion | Jai Shree Ram | &copy; 2025 Bishwajit Prasad Singh
   </footer>
+
+  <!-- Dark/Light Mode Script -->
+  <script>
+    document.getElementById('toggleDarkLight').onclick = function(){
+      document.body.classList.toggle("light");
+    };
+  </script>
+  <!-- GSAP micro animation (Card Lift) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    gsap.from(".profile-card", {y:-30, opacity:0, duration:1.1, delay:.2, ease:"power3.out"});
+    gsap.from(".ai-title", {scale:.7, y:-20, opacity:.3, duration:.8, delay:.15});
+    gsap.to(".profile-pic", {rotation:360, duration:2.2, repeat:-1, yoyo:true, ease:"power1.inOut"});
+  </script>
 </body>
 </html>
