@@ -6,9 +6,7 @@
   <title>Bishwajit Prasad Singh | AI & Data Engineer</title>
   <!-- Fonts: Geometric Sans + Serif -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@400;600&family=Lora:wght@400;600&display=swap" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-  <!-- Particle.js -->
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.1/tsparticles.bundle.min.js"></script>
   <style>
     :root {
@@ -42,7 +40,6 @@
       left:0;top:0;
       pointer-events:none;
     }
-    /* Particle Background */
     #particles-js {position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;}
 
     header {
@@ -262,7 +259,11 @@
         <span><i class="fas fa-envelope"></i> <a href="mailto:bishwajit.1804@gmail.com" style="color:var(--electric-blue);">bishwajit.1804@gmail.com</a></span>
       </div>
       <div class="profile-summary-text">
-        AI & Data Engineer specializing in architecting scalable machine learning, NLP, and generative AI solutions with expertise in Python, cloud data platforms (Azure/AWS), and distributed big data frameworks. Experienced building robust ETL, real-time streaming architectures, and deploying AI models (LLMs, CV, NLP) for production. Skilled in transformer-based modeling, data orchestration, and backend API engineering—leveraging the latest in cloud, automation, and intelligence. Passionate about integrating cutting-edge AI into business applications for maximum impact and reliability.
+        Dynamic AI & Data Engineer with a foundation in Computer Science and hands-on experience building intelligent, scalable solutions that drive business transformation. Starting as a PHP Developer, I rapidly evolved my expertise to architect advanced data-driven applications and automate mission-critical workflows. My technical mastery spans Python, Azure Cloud, Databricks, PySpark, MySQL, Power BI, and the latest in Machine Learning—developing real-world projects across supervised, unsupervised, and reinforcement learning.
+
+        I thrive on solving complex challenges through cloud engineering, big data processing, and continuous innovation, making data actionable with automation and AI. My journey is fueled by relentless curiosity and disciplined growth, with a proven record of translating business needs into high-impact analytics, predictive systems, and intelligent automation.
+
+        I aspire to contribute as an AI or Data Engineer who blends cutting-edge cloud technologies, large-scale pipelines, and strategic vision—empowering teams to deliver smarter solutions and meaningful results.
       </div>
       <a class="download-btn" href="Bishwajit_Singh_Data_Engineer_Resume.pdf" target="_blank"><i class="fas fa-download"></i> Download Resume</a>
     </div>
@@ -353,23 +354,6 @@
   </section>
 
   <section class="glass-section">
-    <h3><i class="fas fa-palette icon"></i> My Design System</h3>
-    <div class="style-guide">
-      <div>
-        <div class="sg-fonts"><b>Serif:</b> Lora &rarr; Key paragraphs</div>
-        <div class="sg-sans"><b>Sans:</b> Orbitron/Poppins &rarr; Headers & UI</div>
-      </div>
-      <div class="sg-colors">
-        <div class="sg-color" style="background:var(--electric-blue);color:#181824;">Blue</div>
-        <div class="sg-color" style="background:var(--neon-purple);color:#fff;">Purple</div>
-        <div class="sg-color" style="background:var(--neon-orange);color:#fff;">Orange</div>
-        <div class="sg-color" style="background:#fff;color:#181824;border:2px solid #333;">Light</div>
-        <div class="sg-color" style="background:#181824;color:#fff;">Dark</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="glass-section">
     <h3><i class="fas fa-paper-plane icon"></i> Contact & Socials</h3>
     <div class="contact-card">
       <span><i class="fas fa-envelope"></i> <a href="mailto:bishwajit.1804@gmail.com" style="color:var(--electric-blue);">bishwajit.1804@gmail.com</a></span><br>
@@ -393,12 +377,11 @@
       document.body.classList.toggle("light");
     };
   </script>
-  <!-- GSAP micro animation (Card Lift) -->
+  <!-- GSAP micro animation (Card Lift only, no image rotation) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script>
     gsap.from(".profile-card", {y:-30, opacity:0, duration:1.1, delay:.2, ease:"power3.out"});
     gsap.from(".ai-title", {scale:.7, y:-20, opacity:.3, duration:.8, delay:.15});
-    gsap.to(".profile-pic", {rotation:360, duration:2.2, repeat:-1, yoyo:true, ease:"power1.inOut"});
   </script>
 </body>
 </html>
