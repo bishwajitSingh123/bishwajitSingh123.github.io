@@ -5,249 +5,332 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bishwajit Prasad Singh | AI & Data Engineer</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --ai-gradient: linear-gradient(135deg, #4f8cff 0%, #8a2be2 100%);
+      --bhagwa: #ff6f00;
+      --dark-card: #1a1a2e;
+      --text-glow: 0 0 8px #fff, 0 0 16px #8a2be2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0;}
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #ff6f00, #ffcc80);
-      color: #222;
+      background: var(--ai-gradient);
+      min-height: 100vh;
+      color: #eaeafd;
+      transition: background 0.5s;
     }
     header {
-      background: rgba(0,0,0,0.1);
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 1.2rem 1rem;
+      background: rgba(26, 26, 46, 0.14);
+      box-shadow: 0 2px 8px #18182412;
     }
-    header h1 { font-size: 2.3rem; color: white; }
-    header h2 { font-size: 1rem; color: #ffe0b2; }
-    .profile {
-      margin-bottom: .8rem;
+    .ai-intro {
+      font-size: 2.2rem;
+      font-weight: bold;
+      background: var(--ai-gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: text-glow 2s infinite alternate;
     }
+    @keyframes text-glow {
+      0% { text-shadow: var(--text-glow);}
+      100% { text-shadow: 0 0 4px #fff, 0 0 24px #4f8cff;}
+    }
+    .profile-info {margin: 0.7rem 0;}
+    .profile-info h2 {
+      font-size: 1.15rem;
+      color: #ffe0b2;
+      margin-bottom: .4rem;
+      font-weight: 600;
+    }
+    .hero-links a {
+      color: #ff6f00;
+      text-decoration: none;
+      font-weight: 700;
+      margin: 0 .75rem;
+      font-size: 1.12rem;
+      transition: color .2s;
+    }
+    .hero-links a:hover { color: #8a2be2; }
+    .location { font-size: 1rem; }
+    .btn {
+      display: inline-block;
+      margin-top: 1.1rem;
+      background: var(--bhagwa);
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: bold;
+      box-shadow: 0 2px 6px #ff6f0022;
+      border: none;
+      text-decoration: none;
+      transition: background .3s;
+    }
+    .btn:hover { background: #8a2be2; }
     section {
       padding: 2.2rem 1rem;
-      max-width: 900px;
+      max-width: 940px;
       margin: auto;
     }
     h3 {
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-      color: #4e342e;
-      border-bottom: 2px solid #ffa726;
+      font-size: 1.3rem;
+      margin-bottom: 1.1rem;
+      color: #ffc878;
+      border-bottom: 1.5px solid #8a2be2;
       display: inline-block;
+      letter-spacing: 1.4px;
+      text-shadow: 0 0 10px #18182499;
     }
-    .skills, .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.5rem; }
-    .card {
-      background: white;
-      padding: 1.1rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.4rem;}
+    .card, .exp-card {
+      background: #181824ec;
+      border: 1.5px solid #2323695c;
+      border-radius: 13px;
+      box-shadow: 0 4px 18px #2a2a4e33;
+      padding: 1.15rem 1rem;
+      position: relative;
+      transition: transform .23s, box-shadow .23s;
+      color: #eaeafd;
+      overflow: hidden;
     }
-    .card h4 { font-size: 1.05rem; margin-bottom: .7rem; color: #ff6f00;}
-    .card p { font-size: 0.98rem;}
-    .card a { color: #e65100; text-decoration: none; font-weight: 600;}
-    .card ul, .card ol { margin: .8rem 0 0 1.2rem; font-size: 0.97rem;}
-    .exp { margin-bottom: 1.1rem; }
+    .card:hover, .exp-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 8px 24px #4f8cff61;
+      border: 2px solid var(--ai-gradient);
+    }
+    .card h4 { font-size: 1.02rem; color: #bf360c; margin-bottom: .7rem;}
+    .card p, .exp-card p {font-size: 0.98rem;}
+    .card ul {margin-top: .6rem; padding-left: .9rem;}
+    .tag-list {
+      margin-top: .6rem; font-size: 0.95rem;
+      color: #56f6ff; letter-spacing: .3px;
+    }
+    .exp-card strong { color: #ff6f00;}
+    .exp-card { margin-bottom: 1.15rem;}
+    .cert-list {margin-top: 0.5rem;}
+    .cert-list li {padding: .2rem 0;}
+    .contact-details {
+      font-size: 1.03rem;
+      line-height: 1.7;
+    }
+    .social-icons a {
+      color: #b4f2ff;
+      margin: 0 .7rem;
+      font-size: 1.3rem;
+      transition: color .2s;
+      vertical-align: middle;
+    }
+    .social-icons a:hover { color: #ff6f00;}
     footer {
       background: #bf360c;
       color: white;
       text-align: center;
-      padding: 1rem;
+      padding: 1.05rem;
       font-size: 0.96rem;
+      letter-spacing: 1px;
+      border-top: 2px solid #ff6f00;
+      margin-top: 1.2rem;
     }
-    .btn {
-      display: inline-block;
-      margin-top: 1rem;
-      background: #ff6f00;
-      color: white;
-      padding: 0.6rem 1.1rem;
-      border-radius: 5px;
-      font-weight: bold;
+    @media (max-width: 650px) {
+      section {padding-top: 1.5rem;}
+      .card-grid {grid-template-columns: 1fr;}
     }
-    .links { margin:0.7rem 0;}
-    .links a { color: #bf360c; margin: 0 .7rem; font-weight: bold;}
   </style>
 </head>
 <body>
-<header>
-  <div class="profile">
-    <h1>🙏 Jai Shree Ram</h1>
-    <h1>Bishwajit Prasad Singh</h1>
-    <h2>AI & Data Engineer | Machine Learning | Python | NLP | Cloud (Azure, AWS)</h2>
-    <div class="links">
-      <a href="mailto:bishwajit.1804@gmail.com" target="_blank">📧 Mail</a>
-      <a href="https://linkedin.com/in/bishwajitsingh" target="_blank">LinkedIn</a>
-      <a href="https://github.com/bishwajitSingh123" target="_blank">GitHub</a>
-      <a href="#" target="_blank">Portfolio</a>
+  <header>
+    <div class="ai-intro">👋 Jai Shree Ram | Bishwajit Prasad Singh</div>
+    <div class="profile-info">
+      <h2>AI & Data Engineer | ML, Deep Learning, Python, NLP, Cloud (Azure & AWS)</h2>
+      <div class="hero-links">
+        <a href="mailto:bishwajit.1804@gmail.com" title="Email"><i class="fas fa-envelope"></i> Mail</a>
+        <a href="https://linkedin.com/in/bishwajitsingh" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="https://github.com/bishwajitSingh123" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        <a href="#" target="_blank" title="Portfolio"><i class="fas fa-globe"></i> Portfolio</a>
+      </div>
+      <div class="location">📍 Noida, UP <span style="color:#56f6ff">| Open to Relocate</span> | <strong>+91 8882218924</strong></div>
+      <a class="btn" href="Bishwajit_Singh_Data_Engineer_Resume.pdf" target="_blank">📄 Download Resume</a>
     </div>
-    <p>📍 Noida, Uttar Pradesh &nbsp;|&nbsp; <span style="color:#bf360c;font-weight:700;">Open to Relocate</span> | <strong>+91 8882218924</strong></p>
-    <a class="btn" href="Bishwajit_Singh_Data_Engineer_Resume.pdf" target="_blank">📄 Download Resume</a>
-  </div>
-</header>
+  </header>
 
-<section>
-  <h3>🚀 Professional Summary</h3>
-  <div class="card">
-    <p>
-      AI & Data Engineer with hands-on experience designing, building, and deploying intelligent data-driven systems. Skilled in ML model development, NLP, LLM fine-tuning, and pipeline orchestration (Python, SQL, Azure & AWS). Skilled in transformers, embeddings, distributed processing (PySpark, Databricks), and computer vision. Passionate about production-ready AI integrating backend, ML, and data engineering workflows.
-    </p>
-  </div>
-</section>
-
-<section>
-  <h3>💻 Technical Skills</h3>
-  <div class="skills">
+  <section>
+    <h3>🚀 About Me & Professional Summary</h3>
     <div class="card">
-      <h4>Programming & Frameworks</h4>
-      <ul>
-        <li>Python (Flask, FastAPI, Django, NumPy, Pandas, Scikit-learn, SpaCy)</li>
-        <li>SQL, Java, JavaScript</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h4>AI & ML Stack</h4>
-      <ul>
-        <li>TensorFlow, PyTorch</li>
-        <li>OpenAI APIs, Hugging Face, LangChain, MLflow</li>
-        <li>TF-IDF, KMeans, Cosine Similarity</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h4>Data Engineering</h4>
-      <ul>
-        <li>ETL/ELT pipelining, Delta Lake, PySpark, Azure Data Factory, Databricks, Data Lake Gen2</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h4>Cloud & DevOps</h4>
-      <ul>
-        <li>Azure (ADF, Databricks, Data Lake Gen2), AWS (S3, Glue, Redshift), Docker (basics), CI/CD (GitHub Actions)</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h4>Databases & Reporting</h4>
-      <ul>
-        <li>Snowflake, MySQL, Cassandra (basics), Redis (basics)</li>
-        <li>Power BI, KPI dashboards</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h4>Version Control & Tools</h4>
-      <ul>
-        <li>Git, GitHub (branching, merging, collab)</li>
-        <li>Linux, OOPs</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h4>Languages</h4>
-      <ul>
-        <li>Hindi, English, Maithali, Bengali, Nepali</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h3>🤖 Key AI & Data Projects</h3>
-  <div class="projects">
-
-    <div class="card">
-      <h4>AI-Enriched Web Scraper <span style="font-weight:normal;">— Intelligent Data Pipeline for Business Insights</span></h4>
       <p>
-        Modular pipeline (Fetcher → Cleaner → Enricher → Reporter) for web data extraction and AI-based categorization.<br>
-        <strong>Tech:</strong> Python, Requests, BeautifulSoup4, Pandas, Scikit-learn, TF-IDF, KMeans<br>
-        <strong>Achievements:</strong> Automated clustering, production-grade logging, generated JSON/CSV reports.<br>
-        <a href="https://github.com/bishwajitSingh123/ai-web-scraper" target="_blank">View on GitHub</a>
+        Hi, I'm Bishwajit — a passionate <b>AI & Data Engineer</b> building intelligent, scalable solutions with cloud, code, and data. My focus: <span class="tag-list">ML modeling, NLP, LLM fine-tuning, backend & pipeline engineering, distributed systems</span>.<br/>
+        I love transforming raw, complex datasets into powerful AI applications for business impact. Skilled in Python, SQL, Azure/AWS Cloud, Transformers, Embeddings & Computer Vision. Always eager to learn and create.
       </p>
     </div>
+  </section>
 
-    <div class="card">
-      <h4>AI Resume Matcher Suite</h4>
+  <section>
+    <h3>💻 Skills & Toolbox</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Programming & Frameworks <i class="fas fa-code"></i></h4>
+        <ul>
+          <li>Python (Flask, FastAPI, Django, NumPy, Pandas, Scikit-learn, SpaCy)</li>
+          <li>SQL, Java, JavaScript</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>AI & ML Stack <i class="fas fa-brain"></i></h4>
+        <ul>
+          <li>TensorFlow, PyTorch, Hugging Face, LangChain, MLflow</li>
+          <li>OpenAI APIs, Transformers, Embeddings, TF-IDF, KMeans</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Data Engineering <i class="fas fa-database"></i></h4>
+        <ul>
+          <li>ETL/ELT, Delta Lake, PySpark, Azure Data Factory, Databricks, Data Lake Gen2</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Cloud & DevOps <i class="fas fa-cloud"></i></h4>
+        <ul>
+          <li>Azure (ADF, Databricks, Data Lake Gen2)</li>
+          <li>AWS (S3, Glue, Redshift), Docker (basic), CI/CD (GitHub Actions)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Databases & Reporting <i class="fas fa-chart-bar"></i></h4>
+        <ul>
+          <li>Snowflake, MySQL, Cassandra (basic), Redis (basic)</li>
+          <li>Power BI, KPI Dashboards</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Version Control & Tools <i class="fas fa-git-alt"></i></h4>
+        <ul>
+          <li>Git, GitHub, Linux, OOPs</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Languages</h4>
+        <ul>
+          <li>Hindi, English, Maithali, Bengali, Nepali</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>🎯 Core Projects & AI Case Studies</h3>
+    <div class="card-grid">
+
+      <div class="card">
+        <h4>AI-Enriched Web Scraper <span style="font-weight:normal;">— Automated Business Data Pipeline</span></h4>
+        <p>
+          Modular pipeline for web data extraction and clustering.<br>
+          <b>Tech:</b> Python, Requests, BeautifulSoup4, Pandas, Scikit-learn, TF-IDF, KMeans<br>
+          <b>Impact:</b> Automated segment clustering, logging, JSON/CSV summary reports.
+          <br><a href="https://github.com/bishwajitSingh123/ai-web-scraper" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>AI Resume Matcher Suite</h4>
+        <p>
+          AI agent for resume–job matching using NLP and semantic embeddings.<br>
+          <b>Tech:</b> Python, Streamlit, SpaCy, TF-IDF, Cosine Similarity, Azure Databricks<br>
+          <b>Impact:</b> 90%+ accurate matches, full CI/CD pipelines in Azure Databricks.
+          <br><a href="https://github.com/bishwajitSingh123/resume-ai-shortlister" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>Olympics Data Lakehouse (Data-to-AI Platform)</h4>
+        <p>
+          End-to-end ETL pipeline for predictive analytics platform.<br>
+          <b>Tech:</b> Azure ADF, Databricks, PySpark, Delta Lake<br>
+          <b>Impact:</b> ML-ready knowledge base, daily 10GB pipeline, auto validation & CI/CD.<br>
+          <a href="https://github.com/bishwajitSingh123/olympics-data-lakehouse" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>ML Models & LLM Experiments</h4>
+        <p>
+          Custom supervised models, LLMs for summarization, classification.<br>
+          <b>Tech:</b> Python, Scikit-learn, OpenAI APIs, Hugging Face, LangChain<br>
+          <a href="https://github.com/bishwajitSingh123/ml-models-llm-experiments" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>NYC Yellow Taxi Streaming Pipeline (Azure)</h4>
+        <p>
+          Real-time analytics, Bronze–Silver–Gold architecture.<br>
+          <b>Tech:</b> Azure Event Hub, Stream Analytics, Databricks, Delta Lake<br>
+          <a href="https://github.com/bishwajitSingh123/nyc-taxi-etl-pipeline" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </p>
+      </div>
+
+      <div class="card">
+        <h4>SummerCamp SQL Assignment</h4>
+        <p>
+          Schema design, analytics dashboards, data validation.<br>
+          <b>Tech:</b> SQL, Database Modeling, Power BI<br>
+          <a href="https://github.com/bishwajitSingh123/summercamp-assignment-sql" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>🏢 Experience</h3>
+    <div class="exp-card">
+      <strong>CygnusAdvertising | Backend Developer – Data Operations | Apr–Oct 2024</strong><br>
       <p>
-        Intelligent agent for resume–job matching, using NLP and semantic embeddings.<br>
-        <strong>Tech:</strong> Python, Streamlit, SpaCy, TF-IDF, Cosine Similarity, Azure Databricks<br>
-        <strong>Achievements:</strong> GenAI-powered recommendations, >90% match accuracy, CI/CD in Databricks.<br>
-        <a href="https://github.com/bishwajitSingh123/resume-ai-shortlister" target="_blank">View on GitHub</a>
+        Developed high-performance backend systems in Python/PHP for analytics automation.
+        Optimized SQL queries, built ETL pipelines, automated KPI reporting (IITs & major hospitals).<br>
+        Supported data dashboards/APIs, reusable data ingestion in MySQL/Databricks.
       </p>
     </div>
+  </section>
 
-    <div class="card">
-      <h4>Olympics Data Lakehouse (Data-to-AI Platform)</h4>
-      <p>
-        End-to-end ETL pipeline for ML training with daily ~10GB processed, automated pipeline validation and deployment.<br>
-        <strong>Tech:</strong> Azure ADF, Databricks, PySpark, Delta Lake.<br>
-        <a href="https://github.com/bishwajitSingh123/olympics-data-lakehouse" target="_blank">View on GitHub</a>
-      </p>
+  <section>
+    <h3>🎓 Education & Certifications</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>B.Tech, Computer Science Engineering</h4>
+        <span>NSHM Knowledge Campus, Durgapur, WB (2019–2023)</span>
+        <div>CGPA: 8.71</div>
+      </div>
+      <div class="card">
+        <h4>Certifications</h4>
+        <ul class="cert-list">
+          <li>Microsoft Certified: Azure Fundamentals</li>
+          <li>Microsoft Certified: Azure Data Fundamentals</li>
+          <li>Azure Data Engineer Associate (In Progress)</li>
+        </ul>
+      </div>
     </div>
+  </section>
 
+  <section>
+    <h3>📫 Let’s Connect</h3>
     <div class="card">
-      <h4>ML Models & LLM Experiments</h4>
-      <p>
-        Developed and deployed models for classification, regression, and clustering; fine-tuned LLMs for text tasks.<br>
-        <strong>Tech:</strong> Python, Scikit-learn, OpenAI APIs, Hugging Face, LangChain<br>
-        <a href="https://github.com/bishwajitSingh123/ml-models-llm-experiments" target="_blank">View on GitHub</a>
-      </p>
+      <div class="contact-details">
+        <div><i class="fas fa-envelope"></i> <a href="mailto:bishwajit.1804@gmail.com" style="color:#56f6ff;">bishwajit.1804@gmail.com</a></div>
+        <div><i class="fas fa-phone"></i> <strong>+91-8882218924</strong></div>
+        <div><i class="fas fa-map-marker-alt"></i> Noida, Sector59, UP<span style="color:#56f6ff;"> (Open to Relocate)</span></div>
+        <div><i class="fas fa-language"></i> Languages: Hindi, English, Maithili, Bengali, Nepali</div>
+        <div class="social-icons">
+          <a href="https://github.com/bishwajitSingh123" target="_blank" aria-label="Github"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/bishwajitsingh" target="_blank" aria-label="Linkedin"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="card">
-      <h4>NYC Yellow Taxi Streaming Pipeline (Azure)</h4>
-      <p>
-        Real-time streaming, Bronze—Silver—Gold architecture; low-latency analytics and reliability.<br>
-        <strong>Tech:</strong> Azure Event Hub, Stream Analytics, Databricks, Delta Lake<br>
-        <a href="https://github.com/bishwajitSingh123/nyc-taxi-etl-pipeline" target="_blank">View on GitHub</a>
-      </p>
-    </div>
-
-    <div class="card">
-      <h4>SummerCamp SQL Assignment</h4>
-      <p>
-        Relational schema, dashboarding, data validation, analytics.<br>
-        <strong>Tech:</strong> SQL, Database Modeling, Power BI<br>
-        <a href="https://github.com/bishwajitSingh123/summercamp-assignment-sql" target="_blank">View on GitHub</a>
-      </p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h3>🏢 Experience</h3>
-  <div class="card exp">
-    <strong>CygnusAdvertising | Backend Developer – Data Operations | Apr–Oct 2024</strong><br>
-    Built and maintained data-driven backend systems (Python, PHP); optimized SQL for 30%+ performance. ETL pipelines, automated KPIs, high-availability APIs for dashboards, data ingestion in MySQL & Databricks.
-  </div>
-</section>
-
-<section>
-  <h3>🎓 Education | Certifications</h3>
-  <div class="skills">
-    <div class="card">
-      <strong>B.Tech in Computer Science Engineering</strong><br>
-      NSHM Knowledge Campus, Durgapur, WB (2019–2023)<br>
-      <span>CGPA: 8.71</span>
-    </div>
-    <div class="card">
-      <strong>Certifications</strong>
-      <ul>
-        <li>Microsoft Certified: Azure Fundamentals</li>
-        <li>Microsoft Certified: Azure Data Fundamentals</li>
-        <li>Azure Data Engineer Associate (In Progress)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h3>📫 Contact & Details</h3>
-  <div class="card">
-    <p>Email: <a href="mailto:bishwajit.1804@gmail.com" target="_blank">bishwajit.1804@gmail.com</a></p>
-    <p>Phone: <strong>+91-8882218924</strong></p>
-    <p>Address: Noida Sector59, UP (Open to relocate)</p>
-    <p>Languages: Hindi, English, Maithali, Bengali, Nepali</p>
-    <p>GitHub: <a href="https://github.com/bishwajitSingh123" target="_blank">bishwajitSingh123</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/bishwajitsingh" target="_blank">bishwajitsingh</a></p>
-  </div>
-</section>
-
-<footer>
-  🚩 Made with devotion and code | Jai Shree Ram
-</footer>
+  <footer>
+    🚩 Built with Devotion, Code, and AI | Jai Shree Ram | &copy; 2025 Bishwajit Prasad Singh
+  </footer>
 </body>
 </html>
