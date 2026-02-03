@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fetal Ultrasound Biometry - Deep Learning System for Clinical Diagnostics">
+    <title>Fetal Ultrasound Biometry - Bishwajit Singh</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="../index.html">Bishwajit Singh</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../projects.html" class="active">Projects</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../assets/resume/Bishwajit_Prasad_Singh_AI_ML_Engineer_Computer_Vision.pdf" class="btn-resume" target="_blank">Resume</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="project-detail-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a>
+                <span>/</span>
+                <a href="../projects.html">Projects</a>
+                <span>/</span>
+                <span>Fetal Ultrasound Biometry</span>
+            </div>
+            <span class="project-badge">Flagship Project - Medical AI</span>
+            <h1 class="hero-title" style="text-align: left; font-size: 2.5rem;">Fetal Ultrasound Biometry</h1>
+            <p class="hero-description" style="text-align: left; max-width: 100%;">
+                Automated biometry measurement pipeline for fetal ultrasound imaging using deep learning. 
+                Designed to handle real clinical constraints: noise, blur, low contrast, and anatomical variation.
+            </p>
+        </div>
+    </section>
+
+    <!-- Problem Statement -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Clinical Problem</h2>
+            <p>
+                Fetal biometry measurement in ultrasound imaging is critical for monitoring fetal growth and detecting 
+                developmental abnormalities. Manual measurement is time-consuming, operator-dependent, and prone to 
+                inter-observer variability. Clinical ultrasound images present unique challenges: inherent speckle noise, 
+                variable contrast, motion blur, and acoustic shadows.
+            </p>
+            <p>
+                The goal was to develop an automated system that could accurately segment anatomical structures and 
+                detect key landmarks for biometric measurements, while maintaining clinical-grade precision under 
+                real-world imaging conditions.
+            </p>
+            
+            <div class="two-column-grid">
+                <div class="info-box">
+                    <h4>Key Challenges</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>Speckle noise inherent to ultrasound imaging</li>
+                        <li>Variable image quality across different operators</li>
+                        <li>Low contrast between anatomical structures</li>
+                        <li>Acoustic shadows and artifacts</li>
+                        <li>Real-time inference requirements</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>Clinical Requirements</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>Segmentation accuracy: Dice Score &gt; 0.90</li>
+                        <li>Landmark localization: &lt; 10 pixel error</li>
+                        <li>Robust to imaging variations</li>
+                        <li>Reproducible measurements</li>
+                        <li>Deployment-ready inference</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Image -->
+    <section class="detail-section" style="background-color: white;">
+        <div class="container">
+            <h2>System Overview</h2>
+            <div class="image-container">
+                <img src="../assets/projects/fetal-ultrasound/project-overview.png" alt="Fetal Ultrasound Biometry System Overview">
+            </div>
+            <p class="image-caption">End-to-end pipeline: preprocessing → segmentation → landmark detection → biometric measurement</p>
+        </div>
+    </section>
+
+    <!-- Data Challenges -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Dataset & Real-World Constraints</h2>
+            <p>
+                The project used a curated dataset of fetal ultrasound images with ground truth annotations. 
+                Unlike clean benchmark datasets, this data reflected actual clinical acquisition conditions.
+            </p>
+            
+            <h3>Dataset Characteristics</h3>
+            <ul>
+                <li>Varying image quality from multiple ultrasound machines and operators</li>
+                <li>Presence of measurement calipers and annotations in some images</li>
+                <li>Incomplete visibility of anatomical structures in certain frames</li>
+                <li>Class imbalance between background and anatomical structures</li>
+                <li>Limited training samples for some anatomical variations</li>
+            </ul>
+
+            <h3>Preprocessing Strategy</h3>
+            <p>
+                Implemented robust preprocessing to normalize the highly variable input data while preserving 
+                clinically-relevant features:
+            </p>
+            <ul>
+                <li>Adaptive histogram equalization for contrast enhancement</li>
+                <li>Gaussian blur for noise reduction without losing edge information</li>
+                <li>Standardization across imaging protocols</li>
+                <li>Data augmentation: rotation, scaling, brightness adjustment to improve generalization</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Model Evolution -->
+    <section class="detail-section" style="background-color: white;">
+        <div class="container">
+            <h2>Model Architecture Evolution</h2>
+            <p>
+                The project followed a systematic architecture evolution strategy, with each iteration addressing 
+                specific limitations observed in the previous version.
+            </p>
+
+            <h3>Hypothesis 1: Standard U-Net</h3>
+            <div class="info-box">
+                <h4>Architecture Details</h4>
+                <p>Classic encoder-decoder architecture with skip connections. Four encoder blocks with max pooling, 
+                   four decoder blocks with upsampling, concatenation of feature maps at each level.</p>
+            </div>
+            <ul>
+                <li><strong>Strengths:</strong> Good baseline performance, captured coarse anatomical structures</li>
+                <li><strong>Limitations:</strong> Struggled with fine boundary delineation, limited attention to relevant features</li>
+                <li><strong>Dice Score:</strong> ~0.88 (below clinical threshold)</li>
+            </ul>
+
+            <h3>Hypothesis 2: Attention U-Net</h3>
+            <div class="info-box">
+                <h4>Architecture Details</h4>
+                <p>Enhanced U-Net with attention gates in skip connections. Attention mechanism allows the network to 
+                   focus on salient features while suppressing irrelevant regions.</p>
+            </div>
+            <ul>
+                <li><strong>Improvements:</strong> Better focus on anatomical boundaries, reduced false positives in noisy regions</li>
+                <li><strong>Key Innovation:</strong> Attention gates learned to suppress background noise and artifacts</li>
+                <li><strong>Dice Score:</strong> ~0.92 (significant improvement over baseline)</li>
+            </ul>
+
+            <h3>Hypothesis 3: ResNet-UNet (Final Architecture)</h3>
+            <div class="info-box">
+                <h4>Architecture Details</h4>
+                <p>U-Net with ResNet encoder backbone. Leveraged transfer learning from ImageNet pre-training, 
+                   deeper feature extraction with residual connections, attention mechanisms in decoder path.</p>
+            </div>
+            <ul>
+                <li><strong>Transfer Learning:</strong> Pre-trained ResNet encoder provided robust low-level feature extraction</li>
+                <li><strong>Performance:</strong> Consistent Dice Score &gt; 0.95 across anatomical structures</li>
+                <li><strong>Localization:</strong> Median pixel error ~6 pixels for landmark detection</li>
+                <li><strong>Robustness:</strong> Maintained performance across varying image quality</li>
+            </ul>
+
+            <div class="image-container" style="margin-top: 2rem;">
+                <img src="../assets/projects/fetal-ultrasound/performance-comparison.png" alt="Performance comparison across architectures">
+            </div>
+            <p class="image-caption">Performance comparison: U-Net → Attention U-Net → ResNet-UNet</p>
+        </div>
+    </section>
+
+    <!-- Training Strategy -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Training Methodology</h2>
+            
+            <h3>Loss Function Design</h3>
+            <p>
+                Implemented a composite loss function to address multiple objectives:
+            </p>
+            <div class="code-block">
+Total Loss = α × Dice Loss + β × Focal Loss + γ × Boundary Loss
+
+Where:
+- Dice Loss: Handles class imbalance, optimizes overlap
+- Focal Loss: Focuses on hard-to-classify pixels
+- Boundary Loss: Emphasizes accurate edge delineation
+- α, β, γ: Weighted coefficients tuned during validation
+            </div>
+
+            <h3>Optimization Strategy</h3>
+            <ul>
+                <li><strong>Optimizer:</strong> AdamW with weight decay for regularization</li>
+                <li><strong>Learning Rate:</strong> Cosine annealing schedule with warm restarts</li>
+                <li><strong>Mixed Precision Training:</strong> Automatic Mixed Precision (AMP) for faster training</li>
+                <li><strong>Regularization:</strong> Dropout (0.3), batch normalization, weight decay</li>
+            </ul>
+
+            <div class="image-container">
+                <img src="../assets/projects/fetal-ultrasound/training-comparison.png" alt="Training curves across hypotheses">
+            </div>
+            <p class="image-caption">Training convergence: Loss and Dice score progression across architectures</p>
+        </div>
+    </section>
+
+    <!-- Results -->
+    <section class="detail-section" style="background-color: white;">
+        <div class="container">
+            <h2>Evaluation & Results</h2>
+            
+            <h3>Segmentation Performance</h3>
+            <div class="two-column-grid">
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <h4>Final Model Metrics</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li><strong>Dice Score:</strong> 0.95+ (exceeds clinical threshold)</li>
+                        <li><strong>IoU:</strong> 0.91+</li>
+                        <li><strong>Precision:</strong> 0.94+</li>
+                        <li><strong>Recall:</strong> 0.96+</li>
+                    </ul>
+                </div>
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <h4>Landmark Detection</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li><strong>Median Error:</strong> ~6 pixels</li>
+                        <li><strong>Detection Accuracy:</strong> 96%+</li>
+                        <li><strong>Localization Success:</strong> 95%+ within 10px</li>
+                        <li><strong>Robustness:</strong> Consistent across noise levels</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Visual Results</h3>
+            <div class="image-container">
+                <img src="../assets/projects/fetal-ultrasound/segmentation-demo.png" alt="Segmentation results">
+            </div>
+            <p class="image-caption">Segmentation results: Input image (left), Ground truth (center), Model prediction (right)</p>
+
+            <div class="image-container" style="margin-top: 2rem;">
+                <img src="../assets/projects/fetal-ultrasound/landmark-detection-demo.png" alt="Landmark detection visualization">
+            </div>
+            <p class="image-caption">Landmark detection: Predicted keypoints overlaid on anatomical structures</p>
+        </div>
+    </section>
+
+    <!-- Deployment -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Inference & Deployment Readiness</h2>
+            
+            <h3>Inference Pipeline</h3>
+            <p>
+                Developed a production-ready inference system optimized for clinical deployment:
+            </p>
+            <ul>
+                <li>Batch inference capability for processing multiple scans</li>
+                <li>Model checkpoint management with versioning</li>
+                <li>Reproducible prediction pipeline</li>
+                <li>Output validation and quality checks</li>
+            </ul>
+
+            <h3>Docker Containerization</h3>
+            <div class="code-block">
+# Inference container includes:
+- PyTorch inference runtime
+- Optimized model checkpoints
+- Preprocessing utilities
+- Batch processing scripts
+- Result visualization tools
+
+# Quick deployment:
+docker pull [registry]/fetal-biometry:latest
+docker run -v /data:/input inference_pipeline.py
+            </div>
+
+            <h3>Performance Optimization</h3>
+            <ul>
+                <li>Model quantization for reduced memory footprint</li>
+                <li>Mixed precision inference (FP16)</li>
+                <li>Batch processing for throughput optimization</li>
+                <li>GPU utilization monitoring and optimization</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Technical Stack -->
+    <section class="detail-section" style="background-color: white;">
+        <div class="container">
+            <h2>Technical Implementation</h2>
+            
+            <div class="two-column-grid">
+                <div class="skill-category">
+                    <h3>Core Technologies</h3>
+                    <ul>
+                        <li>PyTorch (deep learning framework)</li>
+                        <li>OpenCV (image processing)</li>
+                        <li>NumPy & Pandas (data manipulation)</li>
+                        <li>Matplotlib & Seaborn (visualization)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Development Tools</h3>
+                    <ul>
+                        <li>Docker (containerization)</li>
+                        <li>Git (version control)</li>
+                        <li>Python 3.8+</li>
+                        <li>CUDA (GPU acceleration)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Reproducibility</h3>
+            <p>
+                Complete codebase with detailed documentation, environment specifications (requirements.txt, Dockerfile), 
+                training scripts with seed fixing for reproducibility, and comprehensive evaluation notebooks.
+            </p>
+        </div>
+    </section>
+
+    <!-- Learnings -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Key Learnings & Insights</h2>
+            
+            <ul>
+                <li>
+                    <strong>Clinical Data Reality:</strong> Real medical imaging data is fundamentally different from 
+                    clean benchmark datasets. Models must be designed for noise, artifacts, and variability.
+                </li>
+                <li>
+                    <strong>Architecture Evolution:</strong> Systematic experimentation (U-Net → Attention → ResNet) 
+                    revealed that attention mechanisms and transfer learning are critical for medical imaging tasks.
+                </li>
+                <li>
+                    <strong>Loss Function Engineering:</strong> Composite loss functions that balance multiple objectives 
+                    (overlap, hard examples, boundaries) significantly outperform single-objective losses.
+                </li>
+                <li>
+                    <strong>Validation Strategy:</strong> Robust cross-validation and hold-out testing on diverse image 
+                    quality levels is essential to ensure clinical generalization.
+                </li>
+                <li>
+                    <strong>Deployment Considerations:</strong> Production readiness requires more than good metrics—
+                    containerization, batch processing, and reproducibility are equally important.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Repository Link -->
+    <section class="detail-section" style="background-color: white; text-align: center;">
+        <div class="container">
+            <h2>Explore the Code</h2>
+            <p style="margin-bottom: 2rem;">
+                Complete source code, documentation, and trained model checkpoints available on GitHub.
+            </p>
+            <a href="https://github.com/bishwajitSingh123/fetal-ultrasound-biometry" class="btn btn-primary" target="_blank" style="margin-right: 1rem;">
+                View on GitHub
+            </a>
+            <a href="../projects.html" class="btn btn-secondary">
+                Back to Projects
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p>&copy; 2026 Bishwajit Singh. All rights reserved.</p>
+                    <p class="footer-tagline">Strong models are built with discipline, not noise.</p>
+                </div>
+                <div class="footer-right">
+                    <a href="https://github.com/bishwajitSingh123" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/bishwajitsingh" target="_blank">LinkedIn</a>
+                    <a href="https://www.kaggle.com/testbishwajitsingh" target="_blank">Kaggle</a>
+                    <a href="mailto:bishwajit.1804@gmail.com">Email</a>
+                </div>
+            </div>
+            <div class="footer-location">
+                <p>📍 Based in India · Open to global remote opportunities in HealthTech AI</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

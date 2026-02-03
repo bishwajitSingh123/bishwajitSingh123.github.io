@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Resume Matcher - RAG System for Semantic Job Matching">
+    <title>AI Resume Matcher - Bishwajit Singh</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="../index.html">Bishwajit Singh</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../projects.html" class="active">Projects</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../assets/resume/Bishwajit_Prasad_Singh_AI_ML_Engineer_Computer_Vision.pdf" class="btn-resume" target="_blank">Resume</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="project-detail-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a>
+                <span>/</span>
+                <a href="../projects.html">Projects</a>
+                <span>/</span>
+                <span>AI Resume Matcher</span>
+            </div>
+            <span class="project-badge" style="background-color: #8b5cf6;">GenAI Application</span>
+            <h1 class="hero-title" style="text-align: left; font-size: 2.5rem;">AI Resume Matcher</h1>
+            <p class="hero-description" style="text-align: left; max-width: 100%;">
+                Production-grade RAG (Retrieval-Augmented Generation) pipeline for intelligent resume-job matching 
+                using vector similarity search and explainable scoring mechanisms.
+            </p>
+        </div>
+    </section>
+
+    <!-- Problem Statement -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Problem & Motivation</h2>
+            <p>
+                Traditional keyword-based resume screening systems fail to capture semantic meaning and context. 
+                A candidate's experience might be highly relevant to a job even when using different terminology. 
+                The goal was to build an intelligent matching system that understands semantic similarity between 
+                job requirements and candidate qualifications.
+            </p>
+            
+            <div class="two-column-grid">
+                <div class="info-box">
+                    <h4>Key Challenges</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>Semantic understanding beyond keyword matching</li>
+                        <li>Scalable vector search for large resume databases</li>
+                        <li>Explainable matching scores for transparency</li>
+                        <li>Handling diverse resume formats and structures</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>Technical Requirements</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>Vector similarity search (FAISS)</li>
+                        <li>Document chunking and embedding</li>
+                        <li>RAG pipeline for context-aware retrieval</li>
+                        <li>Interactive web interface (Streamlit)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Architecture -->
+    <section class="detail-section" style="background-color: white;">
+        <div class="container">
+            <h2>System Architecture</h2>
+            <p>
+                The system implements a complete RAG pipeline with document processing, vector storage, 
+                semantic retrieval, and explainable scoring.
+            </p>
+
+            <h3>Pipeline Components</h3>
+            <ul>
+                <li>
+                    <strong>Document Ingestion:</strong> Parse PDF/DOCX resumes, extract text using PyPDF2/python-docx, 
+                    clean and normalize text content.
+                </li>
+                <li>
+                    <strong>Text Chunking:</strong> Semantic chunking strategy to preserve context, overlap between 
+                    chunks to maintain continuity, chunk size optimization for embedding models.
+                </li>
+                <li>
+                    <strong>Embedding Generation:</strong> Transformer-based embeddings (sentence-transformers), 
+                    768-dimensional dense vectors, batch processing for efficiency.
+                </li>
+                <li>
+                    <strong>Vector Storage:</strong> FAISS index for fast similarity search, ChromaDB for persistent storage, 
+                    efficient nearest-neighbor retrieval.
+                </li>
+                <li>
+                    <strong>Retrieval & Scoring:</strong> Cosine similarity for ranking, top-k retrieval with configurable k, 
+                    explainable scoring based on matched sections.
+                </li>
+            </ul>
+
+            <div class="image-container">
+                <img src="../assets/projects/resume-matcher/streamlit_ui.png" alt="AI Resume Matcher Interface">
+            </div>
+            <p class="image-caption">Interactive Streamlit interface for resume upload and job matching</p>
+        </div>
+    </section>
+
+    <!-- Technical Implementation -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Technical Implementation</h2>
+            
+            <h3>Vector Search with FAISS</h3>
+            <p>
+                FAISS (Facebook AI Similarity Search) enables efficient similarity search at scale:
+            </p>
+            <div class="code-block">
+# Initialize FAISS index
+dimension = 768  # Embedding dimension
+index = faiss.IndexFlatL2(dimension)
+
+# Add resume embeddings to index
+resume_embeddings = model.encode(resume_chunks)
+index.add(resume_embeddings)
+
+# Search for most similar resumes
+job_embedding = model.encode(job_description)
+distances, indices = index.search(job_embedding, k=10)
+            </div>
+
+            <h3>Semantic Chunking Strategy</h3>
+            <ul>
+                <li><strong>Chunk Size:</strong> 512 tokens (optimal for embedding models)</li>
+                <li><strong>Overlap:</strong> 50 tokens to preserve context across boundaries</li>
+                <li><strong>Metadata:</strong> Store section headers (Experience, Skills, Education) with each chunk</li>
+                <li><strong>Normalization:</strong> Lowercase, remove special characters, preserve technical terms</li>
+            </ul>
+
+            <h3>Embedding Model Selection</h3>
+            <p>
+                Used sentence-transformers library with the 'all-MiniLM-L6-v2' model for optimal balance 
+                between performance and inference speed. This model provides 384-dimensional embeddings with 
+                strong semantic understanding for short texts.
+            </p>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="detail-section" style="background-color: white;">
+        <div class="container">
+            <h2>Key Features</h2>
+            
+            <h3>1. Explainable Matching</h3>
+            <p>
+                Beyond a simple similarity score, the system provides transparency into why a match was made:
+            </p>
+            <ul>
+                <li>Highlight matched sections (e.g., "Python experience matches job requirement")</li>
+                <li>Show similarity scores per resume section (Skills: 0.87, Experience: 0.92)</li>
+                <li>Extract and display most relevant sentences from resume</li>
+            </ul>
+
+            <h3>2. Multi-Format Support</h3>
+            <p>
+                Robust document parsing for various resume formats:
+            </p>
+            <ul>
+                <li>PDF extraction using PyPDF2</li>
+                <li>DOCX parsing with python-docx</li>
+                <li>Text normalization and structure preservation</li>
+                <li>Handling of tables, lists, and formatting</li>
+            </ul>
+
+            <h3>3. Interactive Web Interface</h3>
+            <div class="image-container">
+                <img src="../assets/projects/resume-matcher/github-repo.png" alt="GitHub Repository">
+            </div>
+            <p class="image-caption">Streamlit application with drag-and-drop resume upload and real-time matching</p>
+            
+            <p>Built with Streamlit for a clean, responsive user experience:</p>
+            <ul>
+                <li>Drag-and-drop resume upload</li>
+                <li>Job description text input</li>
+                <li>Real-time matching results</li>
+                <li>Visual similarity score display</li>
+                <li>Top-k candidate ranking</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Technical Stack -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Technology Stack</h2>
+            
+            <div class="two-column-grid">
+                <div class="skill-category">
+                    <h3>Core Libraries</h3>
+                    <ul>
+                        <li>FAISS (vector similarity search)</li>
+                        <li>sentence-transformers (embeddings)</li>
+                        <li>LangChain (RAG orchestration)</li>
+                        <li>ChromaDB (vector database)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Supporting Tools</h3>
+                    <ul>
+                        <li>Streamlit (web interface)</li>
+                        <li>PyPDF2 (PDF parsing)</li>
+                        <li>python-docx (DOCX parsing)</li>
+                        <li>NumPy & Pandas (data processing)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Data Pipeline</h3>
+            <div class="code-block">
+Resume Processing Pipeline:
+1. Upload → Parse (PDF/DOCX) → Extract text
+2. Chunk → Generate embeddings → Store in FAISS
+3. Job description → Embed → Search FAISS
+4. Retrieve top-k → Score → Explain → Display
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges & Solutions -->
+    <section class="detail-section" style="background-color: white;">
+        <div class="container">
+            <h2>Challenges & Engineering Solutions</h2>
+            
+            <h3>Challenge 1: Resume Format Diversity</h3>
+            <p><strong>Problem:</strong> Resumes come in various formats with inconsistent structures.</p>
+            <p><strong>Solution:</strong> Implemented robust text extraction with fallback strategies. 
+               Used regex-based section detection for Education, Experience, Skills. Normalized all text 
+               while preserving important structure.</p>
+
+            <h3>Challenge 2: Semantic Chunking</h3>
+            <p><strong>Problem:</strong> Fixed-size chunking can split important context across boundaries.</p>
+            <p><strong>Solution:</strong> Section-aware chunking that respects resume structure. Overlapping 
+               chunks to preserve context. Metadata tagging for each chunk (section, importance).</p>
+
+            <h3>Challenge 3: Scalability</h3>
+            <p><strong>Problem:</strong> Linear search doesn't scale for large resume databases.</p>
+            <p><strong>Solution:</strong> FAISS approximate nearest neighbor search (ANN) for sub-linear 
+               time complexity. Batch processing for embedding generation. Indexed vector database with 
+               efficient serialization.</p>
+
+            <h3>Challenge 4: Explainability</h3>
+            <p><strong>Problem:</strong> Black-box similarity scores lack transparency.</p>
+            <p><strong>Solution:</strong> Per-section similarity breakdown. Highlighting of matched keywords 
+               and phrases. Extraction of most relevant resume sentences with score attribution.</p>
+        </div>
+    </section>
+
+    <!-- Results & Impact -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Results & Impact</h2>
+            
+            <div class="two-column-grid">
+                <div class="info-box" style="border-left-color: #8b5cf6;">
+                    <h4>System Performance</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li><strong>Retrieval Speed:</strong> &lt; 100ms for 1000 resumes</li>
+                        <li><strong>Embedding Generation:</strong> ~50ms per resume</li>
+                        <li><strong>Accuracy:</strong> Semantic matching outperforms keyword search</li>
+                    </ul>
+                </div>
+                <div class="info-box" style="border-left-color: #8b5cf6;">
+                    <h4>User Experience</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li><strong>Interface:</strong> Intuitive drag-and-drop upload</li>
+                        <li><strong>Real-time:</strong> Instant matching results</li>
+                        <li><strong>Transparency:</strong> Explainable similarity scores</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Key Insights</h3>
+            <ul>
+                <li>
+                    <strong>Semantic > Keywords:</strong> Vector similarity captures meaning better than keyword matching, 
+                    especially for domain-specific terminology variations.
+                </li>
+                <li>
+                    <strong>RAG Effectiveness:</strong> Retrieval-augmented approach combines benefits of semantic search 
+                    with structured querying capabilities.
+                </li>
+                <li>
+                    <strong>Explainability Matters:</strong> Users need to understand why a match was made; simple scores 
+                    are insufficient for hiring decisions.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Future Enhancements -->
+    <section class="detail-section" style="background-color: white;">
+        <div class="container">
+            <h2>Future Enhancements</h2>
+            <ul>
+                <li><strong>Multi-modal Embeddings:</strong> Incorporate structured data (years of experience, education level) 
+                    alongside text embeddings.</li>
+                <li><strong>Fine-tuned Models:</strong> Train domain-specific embedding models on job description-resume pairs.</li>
+                <li><strong>Candidate Ranking:</strong> Multi-criteria ranking beyond semantic similarity (location, experience level, etc.).</li>
+                <li><strong>Active Learning:</strong> Collect user feedback on matches to continuously improve retrieval quality.</li>
+                <li><strong>Skill Taxonomy:</strong> Build hierarchical skill ontology to improve matching across related but differently-named skills.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Repository Link -->
+    <section class="detail-section" style="text-align: center;">
+        <div class="container">
+            <h2>Explore the Code</h2>
+            <p style="margin-bottom: 2rem;">
+                Full source code, Streamlit app, and deployment instructions available on GitHub.
+            </p>
+            <a href="https://github.com/bishwajitSingh123/ai-resume-matcher" class="btn btn-primary" target="_blank" style="margin-right: 1rem;">
+                View on GitHub
+            </a>
+            <a href="../projects.html" class="btn btn-secondary">
+                Back to Projects
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p>&copy; 2026 Bishwajit Singh. All rights reserved.</p>
+                    <p class="footer-tagline">Strong models are built with discipline, not noise.</p>
+                </div>
+                <div class="footer-right">
+                    <a href="https://github.com/bishwajitSingh123" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/bishwajitsingh" target="_blank">LinkedIn</a>
+                    <a href="https://www.kaggle.com/testbishwajitsingh" target="_blank">Kaggle</a>
+                    <a href="mailto:bishwajit.1804@gmail.com">Email</a>
+                </div>
+            </div>
+            <div class="footer-location">
+                <p>📍 Based in India · Open to global remote opportunities in HealthTech AI</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

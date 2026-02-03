@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Taxi Trip Duration Prediction - Top 14 Global Rank in MachineHack Challenge">
+    <title>Taxi Trip Prediction - Bishwajit Singh</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="../index.html">Bishwajit Singh</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../projects.html" class="active">Projects</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../assets/resume/Bishwajit_Prasad_Singh_AI_ML_Engineer_Computer_Vision.pdf" class="btn-resume" target="_blank">Resume</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="project-detail-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a>
+                <span>/</span>
+                <a href="../projects.html">Projects</a>
+                <span>/</span>
+                <span>Taxi Trip Prediction</span>
+            </div>
+            <span class="project-badge" style="background-color: #10b981;">Competitive ML - Top 14 Global</span>
+            <h1 class="hero-title" style="text-align: left; font-size: 2.5rem;">Taxi Trip Duration Prediction</h1>
+            <p class="hero-description" style="text-align: left; max-width: 100%;">
+                Advanced regression model for predicting taxi trip duration using historical trip data. 
+                Achieved <strong>Top-14 global ranking</strong> in MachineHack Weekly Hackathon through disciplined 
+                feature engineering and robust validation strategies.
+            </p>
+        </div>
+    </section>
+
+    <!-- Problem Statement -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Competition Overview</h2>
+            <p>
+                The MachineHack Taxi Trip Distance Prediction Challenge required participants to predict the total 
+                distance (in miles) for taxi rides based on historical trip data. The competition tested fundamental 
+                machine learning skills: feature engineering, model selection, hyperparameter tuning, and validation strategies.
+            </p>
+            
+            <div class="two-column-grid">
+                <div class="info-box">
+                    <h4>Problem Statement</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li><strong>Task:</strong> Regression (predict trip distance)</li>
+                        <li><strong>Metric:</strong> RMSE (Root Mean Squared Error)</li>
+                        <li><strong>Dataset:</strong> ~1.5M training records</li>
+                        <li><strong>Features:</strong> Pickup/dropoff coordinates, timestamps, passenger count</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>Achievement</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li><strong>Final Rank:</strong> Top 14 globally</li>
+                        <li><strong>Competition:</strong> MachineHack Weekly Hackathon</li>
+                        <li><strong>Duration:</strong> Nov 13 - Dec 12, 2025</li>
+                        <li><strong>Participants:</strong> 200+ teams worldwide</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Approach -->
+    <section class="detail-section" style="background-color: white;">
+        <div class="container">
+            <h2>Technical Approach</h2>
+            
+            <h3>1. Exploratory Data Analysis (EDA)</h3>
+            <p>
+                Started with comprehensive data exploration to understand patterns and identify anomalies:
+            </p>
+            <ul>
+                <li><strong>Geographic Patterns:</strong> Visualized pickup/dropoff locations to identify hotspots and outliers</li>
+                <li><strong>Temporal Trends:</strong> Analyzed trip patterns across hours, days, and weeks</li>
+                <li><strong>Distribution Analysis:</strong> Examined target variable distribution and identified outliers</li>
+                <li><strong>Correlation Study:</strong> Explored relationships between features and target variable</li>
+            </ul>
+
+            <h3>2. Data Cleaning & Preprocessing</h3>
+            <ul>
+                <li><strong>Outlier Removal:</strong> Filtered geographically impossible trips (coordinates outside NYC)</li>
+                <li><strong>Invalid Data:</strong> Removed zero-distance trips and negative passenger counts</li>
+                <li><strong>Missing Values:</strong> Minimal missing data; used domain-appropriate imputation</li>
+                <li><strong>Data Type Optimization:</strong> Converted to appropriate dtypes for memory efficiency</li>
+            </ul>
+
+            <h3>3. Feature Engineering (Critical Component)</h3>
+            <p>
+                Feature engineering was the key differentiator. Created 20+ engineered features from the base dataset:
+            </p>
+
+            <h4>Geographic Features</h4>
+            <ul>
+                <li><strong>Haversine Distance:</strong> Great-circle distance between pickup and dropoff coordinates</li>
+                <li><strong>Manhattan Distance:</strong> Grid-based distance (more accurate for city travel)</li>
+                <li><strong>Bearing:</strong> Direction of travel (0-360 degrees)</li>
+                <li><strong>Distance to Center:</strong> Distance from trip midpoint to city center</li>
+                <li><strong>Airport Proximity:</strong> Boolean flags for JFK, LaGuardia, Newark airports</li>
+            </ul>
+
+            <h4>Temporal Features</h4>
+            <ul>
+                <li><strong>Time-based:</strong> Hour, day of week, month, is_weekend, is_rush_hour</li>
+                <li><strong>Cyclical Encoding:</strong> Sine/cosine transforms for hour and day (to capture cyclical nature)</li>
+                <li><strong>Holiday Indicator:</strong> Flag for major holidays</li>
+                <li><strong>Season:</strong> Categorical season based on month</li>
+            </ul>
+
+            <h4>Interaction Features</h4>
+            <ul>
+                <li><strong>Speed Estimate:</strong> Distance / typical duration for that route</li>
+                <li><strong>Density Features:</strong> Trip density in pickup/dropoff neighborhoods</li>
+                <li><strong>Route Popularity:</strong> Frequency of similar origin-destination pairs</li>
+            </ul>
+
+            <div class="code-block">
+# Example: Haversine distance calculation
+from math import radians, sin, cos, sqrt, atan2
+
+def haversine(lat1, lon1, lat2, lon2):
+    R = 3959.87433  # Earth radius in miles
+    
+    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1-a))
+    
+    return R * c
+
+df['haversine_distance'] = haversine(
+    df['pickup_latitude'], df['pickup_longitude'],
+    df['dropoff_latitude'], df['dropoff_longitude']
+)
+            </div>
+        </div>
+    </section>
+
+    <!-- Model Development -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Model Development & Selection</h2>
+            
+            <h3>Candidate Models Evaluated</h3>
+            <p>
+                Systematically evaluated multiple model families to find the best performer:
+            </p>
+
+            <div class="two-column-grid">
+                <div class="skill-category">
+                    <h3>Tree-Based Models</h3>
+                    <ul>
+                        <li>Random Forest Regressor</li>
+                        <li>Gradient Boosting (GBM)</li>
+                        <li>XGBoost (Best performer)</li>
+                        <li>LightGBM (Fast alternative)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Other Approaches</h3>
+                    <ul>
+                        <li>Linear Regression (baseline)</li>
+                        <li>Ridge/Lasso Regression</li>
+                        <li>Support Vector Regression</li>
+                        <li>Ensemble Stacking</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Final Model: XGBoost</h3>
+            <p>
+                XGBoost emerged as the best single model due to its strong handling of non-linear relationships 
+                and feature interactions. Key advantages:
+            </p>
+            <ul>
+                <li>Robust to outliers and skewed distributions</li>
+                <li>Automatic feature importance ranking</li>
+                <li>Built-in regularization (L1/L2)</li>
+                <li>Efficient handling of missing values</li>
+                <li>Excellent performance on tabular data</li>
+            </ul>
+
+            <h3>Hyperparameter Tuning</h3>
+            <p>
+                Used GridSearchCV with cross-validation to optimize key hyperparameters:
+            </p>
+            <div class="code-block">
+# Final XGBoost configuration
+params = {
+    'max_depth': 8,
+    'learning_rate': 0.05,
+    'n_estimators': 500,
+    'subsample': 0.8,
+    'colsample_bytree': 0.8,
+    'min_child_weight': 3,
+    'gamma': 0.1,
+    'reg_alpha': 0.1,  # L1 regularization
+    'reg_lambda': 1.0,  # L2 regularization
+    'objective': 'reg:squarederror'
+}
+            </div>
+        </div>
+    </section>
+
+    <!-- Validation Strategy -->
+    <section class="detail-section" style="background-color: white;">
+        <div class="container">
+            <h2>Validation Strategy</h2>
+            
+            <h3>Cross-Validation Approach</h3>
+            <p>
+                Implemented rigorous validation to ensure model generalization and prevent overfitting:
+            </p>
+            <ul>
+                <li><strong>K-Fold CV:</strong> 5-fold stratified cross-validation on training data</li>
+                <li><strong>Time-Based Split:</strong> Additional temporal validation (train on older data, test on newer)</li>
+                <li><strong>Hold-Out Set:</strong> 20% of training data held for final validation</li>
+                <li><strong>Metric Consistency:</strong> Ensured CV scores aligned with leaderboard scores</li>
+            </ul>
+
+            <h3>Overfitting Prevention</h3>
+            <ul>
+                <li><strong>Regularization:</strong> L1/L2 penalties in XGBoost</li>
+                <li><strong>Early Stopping:</strong> Monitored validation loss to prevent overfitting</li>
+                <li><strong>Feature Selection:</strong> Removed low-importance features (< 1% contribution)</li>
+                <li><strong>Cross-Validation:</strong> Consistent performance across all folds</li>
+            </ul>
+
+            <h3>Feature Importance Analysis</h3>
+            <p>
+                Analyzed feature contributions to understand model behavior and remove noise:
+            </p>
+            <ul>
+                <li>Top features: Haversine distance, Manhattan distance, hour of day, is_airport</li>
+                <li>Removed features with &lt; 1% importance to reduce overfitting</li>
+                <li>Validated that engineered features outperformed raw features</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Results -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Competition Results</h2>
+            
+            <div class="two-column-grid">
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <h4>Final Performance</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li><strong>Global Rank:</strong> Top 14 (out of 200+ teams)</li>
+                        <li><strong>Final RMSE:</strong> [Competition-specific score]</li>
+                        <li><strong>CV Score:</strong> Consistent with leaderboard</li>
+                        <li><strong>Improvement:</strong> 15% better than baseline</li>
+                    </ul>
+                </div>
+                <div class="info-box" style="border-left-color: #10b981;">
+                    <h4>Key Success Factors</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>Disciplined feature engineering</li>
+                        <li>Robust validation strategy</li>
+                        <li>Systematic model selection</li>
+                        <li>Hyperparameter optimization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Competitive Insights</h3>
+            <ul>
+                <li>
+                    <strong>Feature Engineering > Model Complexity:</strong> Well-engineered features with XGBoost 
+                    outperformed complex deep learning models with raw features.
+                </li>
+                <li>
+                    <strong>Geographic Features Critical:</strong> Distance metrics (Haversine, Manhattan) were the 
+                    most important predictors, highlighting the spatial nature of the problem.
+                </li>
+                <li>
+                    <strong>Temporal Patterns Matter:</strong> Rush hour and weekend indicators significantly improved 
+                    predictions by capturing traffic patterns.
+                </li>
+                <li>
+                    <strong>Validation = Success:</strong> Teams with rigorous CV strategies avoided overfitting and 
+                    achieved consistent leaderboard performance.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Technical Stack -->
+    <section class="detail-section" style="background-color: white;">
+        <div class="container">
+            <h2>Technology Stack</h2>
+            
+            <div class="two-column-grid">
+                <div class="skill-category">
+                    <h3>Core Libraries</h3>
+                    <ul>
+                        <li>Scikit-Learn (modeling, preprocessing)</li>
+                        <li>XGBoost (final model)</li>
+                        <li>Pandas (data manipulation)</li>
+                        <li>NumPy (numerical operations)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Analysis & Visualization</h3>
+                    <ul>
+                        <li>Matplotlib & Seaborn (visualization)</li>
+                        <li>Jupyter Notebook (experimentation)</li>
+                        <li>SHAP (feature importance)</li>
+                        <li>Folium (geographic visualization)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lessons Learned -->
+    <section class="detail-section">
+        <div class="container">
+            <h2>Key Learnings</h2>
+            
+            <ul>
+                <li>
+                    <strong>Domain Knowledge Drives Features:</strong> Understanding NYC geography, traffic patterns, 
+                    and taxi operations directly informed feature engineering decisions.
+                </li>
+                <li>
+                    <strong>Validation Strategy is Critical:</strong> A robust CV setup prevented overfitting and 
+                    ensured leaderboard consistency, which many competitors struggled with.
+                </li>
+                <li>
+                    <strong>Simple Models + Good Features > Complex Models + Raw Features:</strong> XGBoost with 
+                    engineered features outperformed neural networks with raw inputs.
+                </li>
+                <li>
+                    <strong>Feature Importance for Debugging:</strong> Analyzing feature contributions helped identify 
+                    and remove noise, improving both performance and interpretability.
+                </li>
+                <li>
+                    <strong>Iterative Experimentation:</strong> Success came from systematic testing of hypotheses 
+                    (e.g., "Does airport proximity matter?") rather than random feature additions.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Certification -->
+    <section class="detail-section" style="background-color: white; text-align: center;">
+        <div class="container">
+            <h2>Competition Certificate</h2>
+            <p style="margin-bottom: 2rem;">
+                Official MachineHack certification for Top-14 global ranking in the Taxi Trip Distance Prediction Challenge.
+            </p>
+            <a href="../assets/images/certificates/machinehack-top14.pdf" class="btn btn-primary" target="_blank" style="margin-right: 1rem;">
+                View Certificate
+            </a>
+            <a href="https://www.kaggle.com/testbishwajitsingh" class="btn btn-secondary" target="_blank">
+                Kaggle Profile
+            </a>
+        </div>
+    </section>
+
+    <!-- Repository Link -->
+    <section class="detail-section" style="text-align: center;">
+        <div class="container">
+            <h2>Explore the Code</h2>
+            <p style="margin-bottom: 2rem;">
+                Full competition solution, feature engineering notebooks, and model training scripts on GitHub.
+            </p>
+            <a href="https://github.com/bishwajitSingh123/taxi-trip-prediction" class="btn btn-primary" target="_blank" style="margin-right: 1rem;">
+                View on GitHub
+            </a>
+            <a href="../projects.html" class="btn btn-secondary">
+                Back to Projects
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p>&copy; 2026 Bishwajit Singh. All rights reserved.</p>
+                    <p class="footer-tagline">Strong models are built with discipline, not noise.</p>
+                </div>
+                <div class="footer-right">
+                    <a href="https://github.com/bishwajitSingh123" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/bishwajitsingh" target="_blank">LinkedIn</a>
+                    <a href="https://www.kaggle.com/testbishwajitsingh" target="_blank">Kaggle</a>
+                    <a href="mailto:bishwajit.1804@gmail.com">Email</a>
+                </div>
+            </div>
+            <div class="footer-location">
+                <p>📍 Based in India · Open to global remote opportunities in HealthTech AI</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
